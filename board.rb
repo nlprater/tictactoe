@@ -19,7 +19,7 @@ class Board
   end
 
   def square_already_marked?(requested_location)
-    @squares[requested_location[0]][requested_location[1]].mark == nil ? false : true
+    @squares[requested_location[0]][requested_location[1]].mark == " " ? false : true
   end
 
   def mark_square(location, marker)
@@ -41,8 +41,11 @@ class Board
   def horizontals
     horizontals = []
     size = @squares[0].length
+    size.times { horizontals << [] }
     size.times do |i|
-     horizontals << @squares[i].each {|square| square.mark}
+      @squares[i].each do |square| 
+        horizontals[i] << square.mark
+      end
     end
     horizontals
   end
@@ -75,7 +78,7 @@ class Board
       counter1 += 1
       counter2 -= 1
     end
-    diagonals
+   diagonals
   end
 
 end

@@ -52,8 +52,13 @@ class Display
 
   def board(board)
   	puts
-    puts board.squares
+  	board.squares.each do |row|
+      row.each do |square|
+      	print " " + square.mark + " "
+      end
+      print "\n"
+    end
+    puts
   end
-
 
 end

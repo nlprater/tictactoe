@@ -86,8 +86,10 @@ class Game
     paths = @board.gather_all_paths
 
     paths.each do |path|
-      result << "winner" if path.uniq.length == 1 && path.include?(nil) == false
+      result << "winner" if path.uniq.length == 1 && path.include?(" ") == false
     end
+    
+    paths.each {|path| path.delete(" ")}
 
     paths.each do |path|
       stalemate_array << "stalemate" if path.uniq.length >= 2
