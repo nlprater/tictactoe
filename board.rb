@@ -24,7 +24,6 @@ class Board
 
   def mark_square(location, marker)
     @squares[location[0]][location[1]].mark = marker
-    p @squares
   end
 
   def gather_all_paths

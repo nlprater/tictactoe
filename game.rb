@@ -68,6 +68,15 @@ class Game
     Mark.new(player,location)
   end
 
+  def does_location_exist?(location)
+    @board.squares.each do |row|
+      row.each do |square|
+        return true if square.location == location
+      end
+    end
+    false
+  end
+
   def find_next_player(player)
     player_hash = Hash[@players.map.with_index.to_a]
     position = player_hash[player]
@@ -77,33 +86,34 @@ class Game
     else
       @players[position + 1]
     end
-     
   end
 
   def result
-    result = ""
+    if winner?
+      return "winner"
+    elsif stalemate?
+      return "stalemate"
+    else
+      return ""
+    end
+  end
+
+  def winner?
+    paths = @board.gather_all_paths
+    paths.each do |path|
+      return true if path.uniq.length == 1 && path.include?(" ") == false
+    end
+    false
+  end
+
+  def stalemate?
     stalemate_array = []
     paths = @board.gather_all_paths
-
-    paths.each do |path|
-      result << "winner" if path.uniq.length == 1 && path.include?(" ") == false
-    end
-    
     paths.each {|path| path.delete(" ")}
-
     paths.each do |path|
       stalemate_array << "stalemate" if path.uniq.length >= 2
     end
-
-    if stalemate_array.length == paths.length
-      result << "stalemate"
-    end
-
-    if result != ""
-      return result
-    else
-      return false
-    end
+    stalemate_array.length == paths.length ? true : false
   end
 
 end

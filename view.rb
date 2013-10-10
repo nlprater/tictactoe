@@ -35,6 +35,11 @@ class Display
     puts
   end
 
+  def location_does_not_exist_message
+    puts "That location doesn't exist on the board.  Please select another location."
+    puts
+  end
+
   def square_already_marked_message
     puts "that's already marked, enter another"
     puts
@@ -57,6 +62,7 @@ class Display
       	print " " + square.mark + " "
       end
       print "\n"
+      puts
     end
     puts
   end
